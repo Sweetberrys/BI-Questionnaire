@@ -97,7 +97,7 @@ public class ChartController {
         }
         // 无需Prompt，直接调用现有模型
         // 模型ID
-        long biModelId = 1763730658075037697L;
+        long biModelId = 自己的模型ID;
 
         // 构造用户输入,设置预设信息
         StringBuilder userInput = new StringBuilder();
@@ -285,7 +285,7 @@ public class ChartController {
 
         // 无需Prompt，直接调用现有模型
         // 模型ID
-        long biModelId = 1766830106405720065L;
+        long biModelId = 自己的模型ID;
 
         // 构造用户输入,设置预设信息
         StringBuilder userInput = new StringBuilder();
@@ -464,7 +464,7 @@ public class ChartController {
 
         // 无需Prompt，直接调用现有模型
         // 模型ID
-        long biModelId = 1766830106405720065L;
+        long biModelId = 自己的模型ID;
 
         // 构造用户输入,设置预设信息
         StringBuilder userInput = new StringBuilder();

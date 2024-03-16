@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.ChartMapper">
+
+    <sql id="Base_Column_List">
+        id,name,goal,chartData,chartType,genChart
+            genResult,user_id,createTime,updateTime,isDelete,status,execMessage
+    </sql>
+
+    <select id="selectAll" resultType="com.questionnaire.entity.Chart">
+        select
+        *
+        from chart
+        <where>
+            <if test="id != null"> and chart.id = #{id}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectById" resultType="com.questionnaire.entity.Chart">
+        select
+        <include refid="Base_Column_List" />
+        from chart
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from chart
+        where  id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.questionnaire.entity.Chart" useGeneratedKeys="true" keyProperty="id">
+        insert into chart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="goal != null">goal,</if>
+            <if test="chartData != null">chartData,</if>
+            <if test="chartType != null">chartType,</if>
+            <if test="genChart != null">genChart,</if>
+            <if test="genResult != null">genResult,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="execMessage != null">status,</if>
+            <if test="createTime != null">createTime,</if>
+            <if test="updateTime != null">updateTime,</if>
+            <if test="isDelete != null">isDelete,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="goal != null">#{goal},</if>
+            <if test="chartData != null">#{chartData},</if>
+            <if test="chartType != null">#{chartType},</if>
+            <if test="genChart != null">#{genChart},</if>
+            <if test="genResult != null">#{genResult},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="execMessage != null">#{execMessage},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.questionnaire.entity.Chart">
+        update chart
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="goal != null">
+                goal = #{goal},
+            </if>
+            <if test="chartData != null">
+                chartData = #{chartData},
+            </if>
+            <if test="chartType != null">
+                chartType = #{chartData},
+            </if>
+            <if test="genChart != null">
+                genChart =#{genChart},
+            </if>
+            <if test="genResult != null">
+                genResult = #{genResult},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="execMessage != null">
+                execMessage = #{execMessage},
+            </if>
+            <if test="createTime != null">
+                createTime =#{createTime},
+            </if>
+            <if test="updateTime != null">
+                updateTime =#{updateTime},
+            </if>
+            <if test="isDelete != null">
+                isDelete =#{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

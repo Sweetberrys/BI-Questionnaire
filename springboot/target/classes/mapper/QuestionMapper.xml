@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.QuestionMapper">
+
+    <sql id="Base_Column_List">
+        id,name,type,page_id,user_id
+    </sql>
+
+    <select id="selectAll" resultType="com.questionnaire.entity.Question">
+        select
+        question.*,pages.name as pageName,user.name as userName
+        from question
+        left join pages
+        on question.page_id =pages.id
+        left join user
+        on question.user_id = user.id
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="name != null"> and question.name like concat('%', #{name}, '%')</if>
+            <if test="pageId != null"> and page_id = #{pageId}</if>
+            <if test="userId != null"> and user_id = #{userId}</if>
+            <if test="createTime != null"> and create_time = #{createTime}</if>
+
+        </where>
+    </select>
+
+    <select id="selectById" resultType="com.questionnaire.entity.Question">
+        select
+        <include refid="Base_Column_List" />
+        from question
+        where id = #{id}
+    </select>
+
+    <select id="selectByPageId" resultType="com.questionnaire.entity.Question">
+        select
+        <include refid="Base_Column_List" />
+        from question
+        where page_id = #{pageId}
+    </select>
+
+    <delete id="deleteById">
+        delete from question
+        where  id = #{id}
+    </delete>
+
+    <delete id="deleteByPageId">
+        delete from question
+        where  page_id = #{pageId}
+    </delete>
+
+
+
+    <insert id="insert" parameterType="com.questionnaire.entity.Question" useGeneratedKeys="true" keyProperty="id">
+        insert into question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="pageId != null">page_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="pageId != null">#{pageId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.questionnaire.entity.Question">
+        update question
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="pageId != null">
+                page_id = #{pageId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

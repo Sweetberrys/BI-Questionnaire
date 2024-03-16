@@ -1,0 +1,54 @@
+server:
+  port: 9090
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root   #你本地的数据库用户名
+    password: P@ssw0rd #你本地的数据库密码
+    url: jdbc:mysql://localhost:3306/bi_questionnaire?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  # 配置redis
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    timeout: 5000
+    password: 123456
+  # 配置Swagger+Knif4j文档
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+# 上传地址
+download:
+  filePath: D:\毕设项目\111\BI-questionnaire\springboot\src\main\resources\excel
+
+# 配置mybatis实体和xml映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.questionnaire.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+# 鱼聪明
+yuapi:
+  client:
+    access-key: 8h30gu5s2hbubpm3yhabw09ukplo271q
+    secret-key: 08prf1mxn5w2q4lp4mtvobcztvdgukzr
+
+
+
+
+ip: localhost

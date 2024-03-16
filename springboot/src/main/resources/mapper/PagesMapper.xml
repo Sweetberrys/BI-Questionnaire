@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.PagesMapper">
+
+    <sql id="Base_Column_List">
+        id,name,descr,img,count,user_id,create_time,open,saved
+    </sql>
+
+    <select id="selectAll" resultType="com.questionnaire.entity.Pages">
+        select
+        pages.*,user.name as userName
+        from pages
+        left join user
+        on pages.user_id = user.id
+        <where>
+            <if test="name != null"> and pages.name like concat('%', #{name}, '%')</if>
+            <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null"> and pages.user_id = #{userId}</if>
+            <!--判断是否公开-->
+            <if test="open != null"> and pages.open = #{open}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectById" resultType="com.questionnaire.entity.Pages">
+        select
+        <include refid="Base_Column_List" />
+        from pages
+        where id = #{id}
+    </select>
+    <select id="selectPageByQuestion" resultType="com.questionnaire.entity.Pages">
+        select
+        pages.*,user.name as userName
+        from pages
+        left join user
+        on pages.user_id = user.id
+        <where>
+            <if test="name != null"> and pages.name like concat('%', #{name}, '%')</if>
+            <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null"> and pages.user_id = #{userId}</if>
+            <!--判断是否公开-->
+            <if test="open != null"> and pages.open = #{open}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <delete id="deleteById">
+        delete from pages
+        where  id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.questionnaire.entity.Pages" useGeneratedKeys="true" keyProperty="id">
+        insert into pages
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="descr != null">descr,</if>
+            <if test="img != null">img,</if>
+            <if test="count != null">count,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="open != null">open,</if>
+            <if test="saved != null">saved,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="descr != null">#{descr},</if>
+            <if test="img != null">#{img},</if>
+            <if test="count != null">#{count},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="open != null">#{open},</if>
+            <if test="saved != null">#{saved},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.questionnaire.entity.Pages">
+        update pages
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="descr != null">
+                descr = #{descr},
+            </if>
+            <if test="img != null">
+                img = #{img},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="open != null">
+                open = #{open},
+            </if>
+            <if test="saved != null">
+                saved = #{saved},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

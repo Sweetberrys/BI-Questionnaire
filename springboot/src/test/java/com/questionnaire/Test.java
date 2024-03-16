@@ -13,7 +13,7 @@ public class Test {
 
     @org.junit.jupiter.api.Test
     void doChat() {
-        yuApiUtils.doChat(1763730658075037697L,"" +
+        yuApiUtils.doChat(自己的模型ID,"" +
                 "分析需求：分析网站用户的增长情况\n" +
                 "原始数据：日期,用户数\n" +
                 "1号,10\n" +
